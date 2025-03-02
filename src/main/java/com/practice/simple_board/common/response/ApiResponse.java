@@ -15,7 +15,7 @@ public class ApiResponse<T> {
     private final boolean success;
     private final T data;
 
-    public static ResponseEntity<ApiResponse<Void>> sucess(SuccessStatus status) {
+    public static ResponseEntity<ApiResponse<Void>> success(SuccessStatus status) {
         ApiResponse<Void> response = ApiResponse.<Void>builder()
                 .status(status.getStatusCode())
                 .message(status.getMessage())

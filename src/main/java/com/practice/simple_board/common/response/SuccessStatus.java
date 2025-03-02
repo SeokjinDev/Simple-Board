@@ -9,6 +9,11 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public enum SuccessStatus {
 
+    // 200 OK
+    SUCCESS_MEMBER_REGISTERED(HttpStatus.OK, "회원 가입을 성공하였습니다."),
+    SUCCESS_MEMBER_INFO_LOADED(HttpStatus.OK, "회원 정보 조회를 성공하였습니다."),
+    SUCCESS_MEMBER_UPDATED(HttpStatus.OK, "회원 정보 수정을 성공하였습니다."),
+    SUCCESS_MEMBER_QUITED(HttpStatus.OK, "회원 탈퇴를 성공하였습니다."),
     ;
 
     private final HttpStatus httpStatus;
