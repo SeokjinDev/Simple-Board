@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Builder
 public class MemberInfoDTO {
 
-    private String nickname;
     private String email;
     private String password;
+    private String nickname;
     private LocalDateTime createdAt;
 
 }

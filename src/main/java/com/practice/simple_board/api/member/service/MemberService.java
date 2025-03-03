@@ -11,6 +11,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -20,9 +22,9 @@ public class MemberService {
     @Transactional
     public void register(MemberRegisterDTO memberRegisterDTO) {
         Member newMember = Member.builder()
-                .nickname(memberRegisterDTO.getNickname())
                 .email(memberRegisterDTO.getEmail())
                 .password(memberRegisterDTO.getPassword())
+                .nickname(memberRegisterDTO.getNickname())
                 .build();
 
         validateDuplicateMember(newMember);
@@ -30,31 +32,33 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberInfoDTO info(String email) {
+    public MemberInfoDTO info(UUID uuid) {
 
-        Member member = validateAndReturnEmail(email);
-
+        Member member = validateAndReturnByUUID(uuid);
         return MemberInfoDTO.builder()
-                .nickname(member.getNickname())
                 .email(member.getEmail())
                 .password(member.getPassword())
+                .nickname(member.getNickname())
                 .build();
     }
 
     @Transactional
     public void update(MemberUpdateDTO memberUpdateDTO) {
-        Member member = validateAndReturnEmail(memberUpdateDTO.getOldEmail()).toBuilder()
-                .nickname(memberUpdateDTO.getNickname())
+
+        Member member = validateAndReturnByUUID(memberUpdateDTO.getUuid());
+
+        Member updatedMember = member.toBuilder()
                 .email(memberUpdateDTO.getEmail())
                 .password(memberUpdateDTO.getPassword())
+                .nickname(memberUpdateDTO.getNickname())
                 .build();
 
-        memberRepository.save(member);
+        memberRepository.save(updatedMember);
     }
 
     @Transactional
-    public void quit(String email) {
-        Member member = validateAndReturnEmail(email);
+    public void quit(UUID uuid) {
+        Member member = validateAndReturnByUUID(uuid);
 
         memberRepository.delete(member);
     }
@@ -76,8 +80,8 @@ public class MemberService {
         }
     }
 
-    public Member validateAndReturnEmail(String email) {
-        return memberRepository.findByEmail(email)
+    public Member validateAndReturnByUUID(UUID uuid) {
+        return memberRepository.findByUuid(uuid)
                 .orElseThrow(() -> new NotFoundException(ErrorStatus.NOT_FOUND_MEMBER.getMessage()));
     }
 }

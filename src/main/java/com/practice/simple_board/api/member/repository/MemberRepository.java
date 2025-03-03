@@ -6,14 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, UUID> {
 
     @NonNull
-    Optional<Member> findById(@NonNull Long id);
-
-    Optional<Member> findByEmail(String email);
+    Optional<Member> findByUuid(@NonNull UUID uuid);
 
     boolean existsByEmail(String email);
 

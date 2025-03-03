@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Slf4j
 @Tag(name = "Member", description = "회원 관리 API 입니다.")
 @RestController
@@ -48,8 +50,8 @@ public class MemberController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse( responseCode = "404", description = "존재하지 않는 사용자입니다.")
     })
     @GetMapping("info")
-    public ResponseEntity<ApiResponse<MemberInfoDTO>> info(@RequestParam("email") String email) {
-        MemberInfoDTO memberInfoDTO = memberService.info(email);
+    public ResponseEntity<ApiResponse<MemberInfoDTO>> info(@RequestParam("uuid") UUID uuid) {
+        MemberInfoDTO memberInfoDTO = memberService.info(uuid);
 
         return ApiResponse.success(SuccessStatus.SUCCESS_MEMBER_REGISTERED, memberInfoDTO);
     }
@@ -78,9 +80,9 @@ public class MemberController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse( responseCode = "404", description = "존재하지 않는 사용자입니다.")
     })
     @DeleteMapping("quit")
-    public ResponseEntity<ApiResponse<Void>> quit(@RequestParam("email") String email) {
+    public ResponseEntity<ApiResponse<Void>> quit(@RequestParam("uuid") UUID uuid) {
 
-        memberService.quit(email);
+        memberService.quit(uuid);
 
         return ApiResponse.success(SuccessStatus.SUCCESS_MEMBER_QUITED);
     }
