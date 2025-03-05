@@ -50,8 +50,8 @@ public class MemberController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse( responseCode = "404", description = "존재하지 않는 사용자입니다.")
     })
     @GetMapping("info")
-    public ResponseEntity<ApiResponse<MemberInfoDTO>> info(@RequestParam("uuid") UUID uuid) {
-        MemberInfoDTO memberInfoDTO = memberService.info(uuid);
+    public ResponseEntity<ApiResponse<MemberInfoDTO>> info(@RequestParam("uuid") UUID memberId) {
+        MemberInfoDTO memberInfoDTO = memberService.info(memberId);
 
         return ApiResponse.success(SuccessStatus.SUCCESS_MEMBER_REGISTERED, memberInfoDTO);
     }
@@ -80,9 +80,9 @@ public class MemberController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse( responseCode = "404", description = "존재하지 않는 사용자입니다.")
     })
     @DeleteMapping("quit")
-    public ResponseEntity<ApiResponse<Void>> quit(@RequestParam("uuid") UUID uuid) {
+    public ResponseEntity<ApiResponse<Void>> quit(@RequestParam("uuid") UUID memberId) {
 
-        memberService.quit(uuid);
+        memberService.quit(memberId);
 
         return ApiResponse.success(SuccessStatus.SUCCESS_MEMBER_QUITED);
     }

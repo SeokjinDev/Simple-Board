@@ -29,7 +29,7 @@ public class PostService {
                 .title(postCreateDTO.getTitle())
                 .content(postCreateDTO.getContent())
                 .description(postCreateDTO.getDescription())
-                .member(memberRepository.findByUuid(postCreateDTO.getMemberUuid()).get())
+                .member(memberRepository.findByMemberId(postCreateDTO.getMemberId()).get())
                 .build();
 
         postRepository.save(newPost);
@@ -38,13 +38,13 @@ public class PostService {
     @Transactional
     public PostReadDTO read(UUID postUuid) {
 
-        Post post = postRepository.findByUuid(postUuid)
+        Post post = postRepository.findByPostId(postUuid)
                 .orElseThrow(() -> new NotFoundException(ErrorStatus.NOT_FOUND_POST.getMessage())
                 );
 
         return PostReadDTO.builder()
-                .postUuid(post.getUuid())
-                .authorName(post.getMember().getNickname())
+                .postId(post.getPostId())
+                .author(post.getMember().getNickname())
                 .title(post.getTitle())
                 .content(post.getContent())
                 .createdAt(post.getCreatedAt())
@@ -54,7 +54,7 @@ public class PostService {
     @Transactional
     public void update(PostUpdateDTO postUpdateDTO) {
 
-        Post post = postRepository.findByUuid(postUpdateDTO.getPostUuid())
+        Post post = postRepository.findByPostId(postUpdateDTO.getPostId())
                 .orElseThrow(() -> new NotFoundException(ErrorStatus.NOT_FOUND_POST.getMessage())
                 );
 
@@ -69,7 +69,7 @@ public class PostService {
 
     @Transactional
     public void delete(UUID postUuid) {
-        Post post = postRepository.findByUuid(postUuid)
+        Post post = postRepository.findByPostId(postUuid)
                 .orElseThrow(() -> new NotFoundException(ErrorStatus.NOT_FOUND_POST.getMessage()));
 
         postRepository.delete(post);

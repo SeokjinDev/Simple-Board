@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 public class PostUpdateDTO {
 
-    private UUID postUuid;
+    private UUID postId;
     private String title;
     private String content;
     private String description;

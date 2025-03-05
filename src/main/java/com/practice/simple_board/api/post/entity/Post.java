@@ -25,7 +25,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    private UUID uuid;
+    private UUID postId;
 
     private String title;
     private String description;

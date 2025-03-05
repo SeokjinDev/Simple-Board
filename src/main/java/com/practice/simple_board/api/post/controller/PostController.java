@@ -50,8 +50,8 @@ public class PostController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse( responseCode = "404", description = "존재하지 않는 게시글입니다.")
     })
     @GetMapping("/read")
-    public ResponseEntity<ApiResponse<PostReadDTO>> read(@RequestParam UUID uuid) {
-        PostReadDTO postReadDTO = postService.read(uuid);
+    public ResponseEntity<ApiResponse<PostReadDTO>> read(@RequestParam UUID postId) {
+        PostReadDTO postReadDTO = postService.read(postId);
 
         return ApiResponse.success(SuccessStatus.SUCCESS_POST_READ, postReadDTO);
     }
@@ -80,8 +80,8 @@ public class PostController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse( responseCode = "404", description = "존재하지 않는 게시글입니다.")
     })
     @DeleteMapping("/delete")
-    public ResponseEntity<ApiResponse<Void>> delete(@RequestParam UUID postUuid) {
-        postService.delete(postUuid);
+    public ResponseEntity<ApiResponse<Void>> delete(@RequestParam UUID postId) {
+        postService.delete(postId);
 
         return ApiResponse.success(SuccessStatus.SUCCESS_POST_DELETE);
     }

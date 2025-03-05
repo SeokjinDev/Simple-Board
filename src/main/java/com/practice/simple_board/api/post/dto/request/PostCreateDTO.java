@@ -12,6 +12,6 @@ public class PostCreateDTO {
     private String title;
     private String content;
     private String description;
-    private UUID memberUuid;
+    private UUID memberId;
 
 }

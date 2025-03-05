@@ -27,7 +27,7 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    private UUID uuid;
+    private UUID memberId;
 
     @Column(unique = true)
     private String email;

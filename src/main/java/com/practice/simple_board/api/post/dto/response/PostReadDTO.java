@@ -11,10 +11,10 @@ import java.util.UUID;
 @Builder
 public class PostReadDTO {
 
-    private UUID postUuid;
+    private UUID postId;
     private String title;
     private String content;
-    private String authorName;
+    private String author;
     private LocalDateTime createdAt;
 
 }
