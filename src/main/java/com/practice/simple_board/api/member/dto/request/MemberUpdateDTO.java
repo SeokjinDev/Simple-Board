@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 public class MemberUpdateDTO {
 
-    private final UUID uuid;
+    private final UUID memberId;
     private final String email;
     private final String password;
     private final String nickname;

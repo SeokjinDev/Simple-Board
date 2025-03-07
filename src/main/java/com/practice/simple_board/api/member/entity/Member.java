@@ -1,5 +1,6 @@
 package com.practice.simple_board.api.member.entity;
 
+import com.practice.simple_board.api.post.entity.Post;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.Type;
 import org.hibernate.type.SqlTypes;
@@ -26,7 +27,7 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @JdbcTypeCode(SqlTypes.VARCHAR)
-    private UUID uuid;
+    private UUID memberId;
 
     @Column(unique = true)
     private String email;
@@ -44,6 +45,9 @@ public class Member {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Post> posts;
 
     public Member authorizeAdmin() {
         return this.toBuilder()

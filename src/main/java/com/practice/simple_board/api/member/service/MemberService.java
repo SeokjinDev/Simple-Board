@@ -32,9 +32,9 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberInfoDTO info(UUID uuid) {
+    public MemberInfoDTO info(UUID memberId) {
 
-        Member member = validateAndReturnByUUID(uuid);
+        Member member = validateAndReturnByUUID(memberId);
         return MemberInfoDTO.builder()
                 .email(member.getEmail())
                 .password(member.getPassword())
@@ -45,7 +45,7 @@ public class MemberService {
     @Transactional
     public void update(MemberUpdateDTO memberUpdateDTO) {
 
-        Member member = validateAndReturnByUUID(memberUpdateDTO.getUuid());
+        Member member = validateAndReturnByUUID(memberUpdateDTO.getMemberId());
 
         Member updatedMember = member.toBuilder()
                 .email(memberUpdateDTO.getEmail())
@@ -57,8 +57,8 @@ public class MemberService {
     }
 
     @Transactional
-    public void quit(UUID uuid) {
-        Member member = validateAndReturnByUUID(uuid);
+    public void quit(UUID memberId) {
+        Member member = validateAndReturnByUUID(memberId);
 
         memberRepository.delete(member);
     }
@@ -80,8 +80,8 @@ public class MemberService {
         }
     }
 
-    public Member validateAndReturnByUUID(UUID uuid) {
-        return memberRepository.findByUuid(uuid)
+    public Member validateAndReturnByUUID(UUID memberId) {
+        return memberRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new NotFoundException(ErrorStatus.NOT_FOUND_MEMBER.getMessage()));
     }
 }

@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface MemberRepository extends JpaRepository<Member, UUID> {
 
     @NonNull
-    Optional<Member> findByUuid(@NonNull UUID uuid);
+    Optional<Member> findByMemberId(@NonNull UUID memberId);
 
     boolean existsByEmail(String email);
 
